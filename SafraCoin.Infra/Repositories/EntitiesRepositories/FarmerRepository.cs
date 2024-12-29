@@ -6,24 +6,24 @@ using SafraCoin.Infra.Db;
 
 namespace SafraCoin.Infra.Repositories.EntitiesRepositories;
 
-public class InvestorRepository : IInvestorRepository
+public class FarmerRepository : IFarmerRepository
 {
     private readonly AppDbContext _context;
 
-    public InvestorRepository(AppDbContext context)
+    public FarmerRepository(AppDbContext context)
     {
         _context = context;
     }
 
-    public async Task<IEnumerable<User>> GetInvestors()
+    public async Task<IEnumerable<Farmer>> GetFarmers()
     {
-        // Ajustar para retornar apenas os investidores
-        return await _context.Users.ToListAsync();
+        // montar objeto contendo todos os atributos do usuario e farmer
+        return await _context.Farmers.ToListAsync();
     }
 
-    public async Task<bool> AddInvestor(Investor investor)
+    public async Task<bool> AddFarmer(Farmer farmer)
     {
-        await _context.Investors.AddAsync(investor);
+        await _context.Farmers.AddAsync(farmer);
         return await _context.SaveChangesAsync() != 0;
     }
 }

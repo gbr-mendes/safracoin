@@ -1,11 +1,9 @@
 using SafraCoin.Core.ValueObjects;
-using Optional;
-using SafraCoin.Infra.DTO.Investors;
 using SafraCoin.Core.DTO.Investors;
 
 namespace SafraCoin.Core.Interfaces.Services;
 
-public interface IInvestorsService
+public interface IInvestorService
 {
     Task<OutboundRegisterInvestor> Register(InvestorVO investor);
     Task<IEnumerable<OutboundGetInvestor>> GetInvestors();

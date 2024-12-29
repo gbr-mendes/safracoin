@@ -4,18 +4,17 @@ using SafraCoin.Core.Models;
 using SafraCoin.Core.DTO.Investors;
 using AutoMapper;
 using SafraCoin.Core.ValueObjects;
-using SafraCoin.Infra.DTO.Investors;
 
 namespace SafraCoin.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class InvestorsController : ControllerBase
+public class InvestorController : ControllerBase
 {
     private readonly IMapper _mapper;
-    private readonly IInvestorsService _investorsService;
+    private readonly IInvestorService _investorsService;
 
-    public InvestorsController(IMapper mapper, IInvestorsService investorsService)
+    public InvestorController(IMapper mapper, IInvestorService investorsService)
     {
         _mapper = mapper;
         _investorsService = investorsService;

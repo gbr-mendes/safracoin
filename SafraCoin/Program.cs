@@ -52,7 +52,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         b => b.MigrationsAssembly("SafraCoin")));
 
 builder.Services.AddScoped<IInvestorRepository, InvestorRepository>();
-builder.Services.AddScoped<IInvestorsService, InvestorsService>();
+builder.Services.AddScoped<IInvestorService, InvestorService>();
+builder.Services.AddScoped<IFarmerService, FarmerService>();
+builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();

@@ -2,7 +2,7 @@ using AutoMapper;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Core.Models;
 using SafraCoin.Core.DTO.Investors;
-using SafraCoin.Infra.DTO.Investors;
+using SafraCoin.Core.DTO.Farmers;
 
 namespace SafraCoin.Infra.AutoMapping;
 
@@ -19,5 +19,9 @@ public class SafraCoinProfile : Profile
         CreateMap<User, OutboundGetInvestor>();
         CreateMap<User, OutboundRegisterInvestor>();
         CreateMap<OutboundRegisterInvestor, User>();
+        CreateMap<OutboundRegisterFarmer, User>();
+        CreateMap<User, OutboundRegisterFarmer>();
+        CreateMap<InboundRegisterFarmer, FarmerVO>();
+        CreateMap<Farmer, OutboundGetFarmer>();
     }
 }

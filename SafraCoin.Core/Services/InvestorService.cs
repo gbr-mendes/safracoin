@@ -4,20 +4,19 @@ using SafraCoin.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.Interfaces.Repositories;
 using AutoMapper;
-using SafraCoin.Infra.DTO.Investors;
 using SafraCoin.Core.DTO.Investors;
 using SafraCoin.Core.Exceptions;
 
 namespace SafraCoin.Core.Services;
 
-public class InvestorsService : IInvestorsService
+public class InvestorService : IInvestorService
 {
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IInvestorRepository _investorRepository;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public InvestorsService(
+    public InvestorService(
         IPasswordHasher<User> passwordHasher,
         IInvestorRepository investorRepository,
         IUserRepository userRepository,
@@ -42,6 +41,7 @@ public class InvestorsService : IInvestorsService
             throw new DomainException($"User with email {investorVO.Email} already exists");
         }
 
+        // TODO: Migrar a logica de hash de password para o AuthService
         var user = new User
         {
             Name = investorVO.Name,
