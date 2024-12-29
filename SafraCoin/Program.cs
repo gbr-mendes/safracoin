@@ -9,7 +9,7 @@ using SafraCoin.Infra.Settings;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.Models;
 using SafraCoin.Core.Interfaces.Repositories;
-using SafraCoin.Infra.Repositories;
+using SafraCoin.Infra.Repositories.EntitiesRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IInvestorRepository, InvestorRepository>();
 builder.Services.AddScoped<IInvestorsService, InvestorsService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

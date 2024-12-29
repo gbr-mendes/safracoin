@@ -6,6 +6,7 @@ using SafraCoin.Core.Interfaces.Repositories;
 using AutoMapper;
 using SafraCoin.Infra.DTO.Investors;
 using SafraCoin.Core.DTO.Investors;
+using SafraCoin.Core.Exceptions;
 
 namespace SafraCoin.Core.Services;
 
@@ -13,15 +14,18 @@ public class InvestorsService : IInvestorsService
 {
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IInvestorRepository _investorRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
     public InvestorsService(
         IPasswordHasher<User> passwordHasher,
         IInvestorRepository investorRepository,
+        IUserRepository userRepository,
         IMapper mapper)
     {
         _passwordHasher = passwordHasher;
         _investorRepository = investorRepository;
+        _userRepository = userRepository;
         _mapper = mapper;
     }
 
@@ -33,18 +37,33 @@ public class InvestorsService : IInvestorsService
 
     public async Task<OutboundRegisterInvestor> Register(InvestorVO investorVO)
     {
+        if (await _userRepository.UserExists(investorVO.Email))
+        {
+            throw new DomainException($"User with email {investorVO.Email} already exists");
+        }
+
         var user = new User
         {
             Name = investorVO.Name,
             Email = investorVO.Email,
+            PasswordHash = _passwordHasher.HashPassword(null, investorVO.Password)
         };
-        user.PasswordHash =  _passwordHasher.HashPassword(user, investorVO.Password);
+
+        if (!await _userRepository.AddUser(user))
+        {
+            throw new DomainException("An error has occurred while registering the user");
+        }
+
         var investor = new Investor
         {
             User = user
         };
 
-        await _investorRepository.AddInvestor(investor);
+        if (!await _investorRepository.AddInvestor(investor))
+        {
+            throw new DomainException("An error has occurred while registering the investor");
+        }
+
         return _mapper.Map<OutboundRegisterInvestor>(user);
     }
 }

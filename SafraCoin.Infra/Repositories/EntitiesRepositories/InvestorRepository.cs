@@ -4,7 +4,7 @@ using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Infra.Db;
 
-namespace SafraCoin.Infra.Repositories;
+namespace SafraCoin.Infra.Repositories.EntitiesRepositories;
 
 public class InvestorRepository : IInvestorRepository
 {
@@ -20,9 +20,9 @@ public class InvestorRepository : IInvestorRepository
         return await _context.Users.ToListAsync();
     }
 
-    public async Task AddInvestor(Investor investor)
+    public async Task<bool> AddInvestor(Investor investor)
     {
-        await _context.Users.AddAsync(investor.User);
-        await _context.SaveChangesAsync();
+        await _context.Investors.AddAsync(investor);
+        return await _context.SaveChangesAsync() != 0;
     }
 }

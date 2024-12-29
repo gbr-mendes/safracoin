@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SafraCoin.Infra.Db;
@@ -11,9 +12,11 @@ using SafraCoin.Infra.Db;
 namespace SafraCoin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229131351_AddConstraints")]
+    partial class AddConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,15 +28,9 @@ namespace SafraCoin.Migrations
             modelBuilder.Entity("SafraCoin.Core.Models.Investor", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Investors");
                 });
@@ -67,8 +64,8 @@ namespace SafraCoin.Migrations
             modelBuilder.Entity("SafraCoin.Core.Models.Investor", b =>
                 {
                     b.HasOne("SafraCoin.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne()
+                        .HasForeignKey("SafraCoin.Core.Models.Investor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
