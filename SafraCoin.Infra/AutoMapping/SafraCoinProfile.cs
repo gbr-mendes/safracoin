@@ -10,18 +10,20 @@ public class SafraCoinProfile : Profile
 {
     public SafraCoinProfile()
     {
-        CreateMap<InvestorVO, Investor>();
-        CreateMap<Investor, InvestorVO>();
-        CreateMap<InboundRegisterInvestor, InvestorVO>();
-        CreateMap<OutboundRegisterInvestor, InvestorVO>();
-        CreateMap<OutboundGetInvestor, InvestorVO>();
-        CreateMap<OutboundGetInvestor, User>();
-        CreateMap<User, OutboundGetInvestor>();
-        CreateMap<User, OutboundRegisterInvestor>();
-        CreateMap<OutboundRegisterInvestor, User>();
-        CreateMap<OutboundRegisterFarmer, User>();
-        CreateMap<User, OutboundRegisterFarmer>();
-        CreateMap<InboundRegisterFarmer, FarmerVO>();
-        CreateMap<Farmer, OutboundGetFarmer>();
+        CreateMap<InvestorVO, Investor>().DisableCtorValidation();
+        CreateMap<Investor, InvestorVO>().DisableCtorValidation();
+        CreateMap<InboundRegisterInvestor, InvestorVO>().DisableCtorValidation();
+        CreateMap<OutboundRegisterInvestor, InvestorVO>().DisableCtorValidation();
+        CreateMap<OutboundGetInvestor, InvestorVO>().DisableCtorValidation();
+        CreateMap<OutboundGetInvestor, User>().DisableCtorValidation();
+        CreateMap<User, OutboundGetInvestor>().DisableCtorValidation();
+        CreateMap<User, OutboundRegisterInvestor>().DisableCtorValidation();
+        CreateMap<OutboundRegisterInvestor, User>().DisableCtorValidation();
+        CreateMap<OutboundRegisterFarmer, User>().DisableCtorValidation();
+        CreateMap<User, OutboundRegisterFarmer>().DisableCtorValidation();
+        CreateMap<InboundRegisterFarmer, FarmerVO>().DisableCtorValidation();
+        CreateMap<Farmer, OutboundGetFarmer>().DisableCtorValidation();
+        CreateMap<FarmerVO, OutboundGetFarmer>().DisableCtorValidation();
+        CreateMap<FarmerVO, OutboundRegisterFarmer>().DisableCtorValidation();
     }
 }

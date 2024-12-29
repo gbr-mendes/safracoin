@@ -1,9 +1,10 @@
 using SafraCoin.Core.Models;
+using SafraCoin.Core.ValueObjects;
 
 namespace SafraCoin.Core.Interfaces.Repositories;
 
 public interface IFarmerRepository
 {
     Task<bool> AddFarmer(Farmer farmer);
-    Task<IEnumerable<Farmer>> GetFarmers();
+    Task<IEnumerable<FarmerVO>> GetFarmers();
 }

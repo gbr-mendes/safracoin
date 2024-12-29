@@ -15,10 +15,21 @@ public class FarmerRepository : IFarmerRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Farmer>> GetFarmers()
+    public async Task<IEnumerable<FarmerVO>> GetFarmers()
     {
-        // montar objeto contendo todos os atributos do usuario e farmer
-        return await _context.Farmers.ToListAsync();
+        var farmers = from farmer in _context.Farmers
+            join user in _context.Users on farmer.User.Id equals user.Id
+            select new FarmerVO
+            (
+                farmer.Id,
+                user.Id,
+                user.Name,
+                user.Email,
+                string.Empty,
+                farmer.Cnpj,
+                farmer.PhoneNumber
+            );
+        return await farmers.ToListAsync();
     }
 
     public async Task<bool> AddFarmer(Farmer farmer)

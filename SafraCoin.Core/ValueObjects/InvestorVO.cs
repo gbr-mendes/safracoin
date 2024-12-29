@@ -1,7 +1,7 @@
 namespace SafraCoin.Core.ValueObjects;
 public record InvestorVO
 {
-    public required string Name { get; set; }
-    public required string Email { get; set; }
-    public required string Password { get; set; }
+    public string? Name { get; private set; }
+    public string? Email { get; private set; }
+    public string? Password { get; private set; }
 }

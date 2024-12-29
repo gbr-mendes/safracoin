@@ -42,6 +42,7 @@ public class FarmerService : IFarmerService
 
         var user = new User
         {
+            Id = farmerVO.UserId,
             Name = farmerVO.Name,
             Email = farmerVO.Email,
             PasswordHash = _passwordHasher.HashPassword(null, farmerVO.Password)
@@ -54,6 +55,7 @@ public class FarmerService : IFarmerService
 
         var farmer = new Farmer
         {
+            Id = farmerVO.Id,
             User = user,
             Cnpj = farmerVO.Cnpj,
             PhoneNumber = farmerVO.PhoneNumber,
@@ -64,6 +66,8 @@ public class FarmerService : IFarmerService
             throw new DomainException("An error has occurred while registering the farmer");
         }
 
-        return _mapper.Map<OutboundRegisterFarmer>(user);
+        var result = new FarmerVO(farmerVO.Id, farmerVO.UserId, farmerVO.Name, farmerVO.Email, farmerVO.Password, farmerVO.Cnpj, farmerVO.PhoneNumber);
+
+        return _mapper.Map<OutboundRegisterFarmer>(result);
     }
 }

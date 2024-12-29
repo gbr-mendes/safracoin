@@ -30,7 +30,15 @@ public class FarmersController : ControllerBase
     {
         try
         {
-            var farmer = _mapper.Map<FarmerVO>(inboundFarmer);
+            var farmer = new FarmerVO(
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                inboundFarmer.Name,
+                inboundFarmer.Email,
+                inboundFarmer.Password,
+                inboundFarmer.Cnpj,
+                inboundFarmer.PhoneNumber);
+
             var result = await _farmersService.Register(farmer);
             return Ok(result);
         }
