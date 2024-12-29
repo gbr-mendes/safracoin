@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Optional;
 using SafraCoin.Core.Interfaces.Repositories;
 using SafraCoin.Core.Models;
 using SafraCoin.Infra.Db;
@@ -22,5 +23,11 @@ public class UserRepository : IUserRepository
     {
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync() != 0;
+    }
+
+    public async Task<Option<User>> GetUserByEmail(string email)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return user != null ? Option.Some(user) : Option.None<User>();
     }
 }
