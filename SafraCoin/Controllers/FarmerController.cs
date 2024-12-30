@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SafraCoin.Core.DTO.Farmers;
+using SafraCoin.Core.Enums;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.ValueObjects;
 
@@ -37,7 +38,8 @@ public class FarmerController : ControllerBase
                 inboundFarmer.Email,
                 inboundFarmer.Password,
                 inboundFarmer.Cnpj,
-                inboundFarmer.PhoneNumber);
+                inboundFarmer.PhoneNumber,
+                Role.Farmer);
 
             var result = await _farmersService.Register(farmer);
             return Ok(result);

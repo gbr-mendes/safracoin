@@ -1,3 +1,5 @@
+using SafraCoin.Core.Enums;
+
 namespace SafraCoin.Core.ValueObjects;
 public record InvestorVO
 {
@@ -6,13 +8,15 @@ public record InvestorVO
     public string? Name { get; private set; }
     public string? Email { get; private set; }
     public string? Password { get; private set; }
+    public Role Role { get; private set; }
 
-    public InvestorVO(Guid id, Guid userId, string name, string email, string password)
+    public InvestorVO(Guid id, Guid userId, string name, string email, string password, Role role)
     {
         Id = id;
         UserId = userId;
         Name = name;
         Email = email;
         Password = password;
+        Role = role;
     }
 }

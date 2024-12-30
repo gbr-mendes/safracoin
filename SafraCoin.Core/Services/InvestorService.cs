@@ -45,7 +45,8 @@ public class InvestorService : IInvestorService
         {
             Name = investorVO.Name,
             Email = investorVO.Email,
-            PasswordHash = _authService.HashPassword(investorVO.Password)
+            PasswordHash = _authService.HashPassword(investorVO.Password),
+            Role = investorVO.Role
         };
 
         if (!await _userRepository.AddUser(user))
@@ -63,7 +64,13 @@ public class InvestorService : IInvestorService
             throw new DomainException("An error has occurred while registering the investor");
         }
 
-        var result = new InvestorVO(investor.Id, user.Id, user.Name, user.Email, string.Empty);
+        var result = new InvestorVO(
+            investor.Id,
+            user.Id,
+            user.Name,
+            user.Email,
+            string.Empty,
+            investorVO.Role);
 
         return _mapper.Map<OutboundRegisterInvestor>(result);
     }

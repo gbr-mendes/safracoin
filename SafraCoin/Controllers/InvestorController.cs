@@ -4,6 +4,7 @@ using SafraCoin.Core.Models;
 using SafraCoin.Core.DTO.Investors;
 using AutoMapper;
 using SafraCoin.Core.ValueObjects;
+using SafraCoin.Core.Enums;
 
 namespace SafraCoin.Controllers;
 
@@ -37,7 +38,8 @@ public class InvestorController : ControllerBase
                 Guid.NewGuid(),
                 inboundInvestor.Name,
                 inboundInvestor.Email,
-                inboundInvestor.Password
+                inboundInvestor.Password,
+                Role.Investor
             );
 
             var result = await _investorsService.Register(investor);

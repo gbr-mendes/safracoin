@@ -1,3 +1,5 @@
+using SafraCoin.Core.Enums;
+
 namespace SafraCoin.Core.DTO.Farmers;
 
 public class OutboundRegisterFarmer
@@ -8,4 +10,5 @@ public class OutboundRegisterFarmer
     public required string Email { get; set; }
     public required string Cnpj { get; set; }
     public required string PhoneNumber { get; set; }
+    public required Role Role { get; set; }
 }

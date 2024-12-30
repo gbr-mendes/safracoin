@@ -27,7 +27,8 @@ public class FarmerRepository : IFarmerRepository
                 user.Email,
                 string.Empty,
                 farmer.Cnpj,
-                farmer.PhoneNumber
+                farmer.PhoneNumber,
+                user.Role
             );
         return await farmers.ToListAsync();
     }

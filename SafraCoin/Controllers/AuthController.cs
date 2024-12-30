@@ -18,9 +18,9 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [Route("investor/login")]
+    [Route("login")]
     [HttpPost]
-    public async Task<ActionResult<OutboundLogin>> LoginInvestor(InboundLogin inboundLogin)
+    public async Task<ActionResult<OutboundLogin>> Login(InboundLogin inboundLogin)
     {
         var userOption = await _userRepository.GetUserByEmail(inboundLogin.Email);
         if (!userOption.HasValue)

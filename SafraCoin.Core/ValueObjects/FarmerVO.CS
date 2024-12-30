@@ -1,3 +1,5 @@
+using SafraCoin.Core.Enums;
+
 namespace SafraCoin.Core.ValueObjects;
 
 public class FarmerVO
@@ -9,8 +11,9 @@ public class FarmerVO
     public string? Password { get; private set; }
     public string? Cnpj { get; private set; }
     public string? PhoneNumber { get; private set; }
+    public Role Role { get; private set; }
 
-    public FarmerVO(Guid id, Guid userId, string name, string email, string password, string cnpj, string phoneNumber)
+    public FarmerVO(Guid id, Guid userId, string name, string email, string password, string cnpj, string phoneNumber, Role role)
     {
         Id = id;
         UserId = userId;
@@ -19,5 +22,6 @@ public class FarmerVO
         Password = password;
         Cnpj = cnpj;
         PhoneNumber = phoneNumber;
+        Role = role;
     }
 }

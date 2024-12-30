@@ -24,7 +24,8 @@ public class InvestorRepository : IInvestorRepository
                 user.Id,
                 user.Name,
                 user.Email,
-                string.Empty
+                string.Empty,
+                user.Role
             );
         return await investors.ToListAsync();
     }

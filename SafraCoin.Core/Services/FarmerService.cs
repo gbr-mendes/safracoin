@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.DTO.Farmers;
+using SafraCoin.Core.Enums;
 using SafraCoin.Core.Exceptions;
 using SafraCoin.Core.Interfaces.Repositories;
 using SafraCoin.Core.Interfaces.Services;
@@ -45,7 +46,8 @@ public class FarmerService : IFarmerService
             Id = farmerVO.UserId,
             Name = farmerVO.Name,
             Email = farmerVO.Email,
-            PasswordHash = _passwordHasher.HashPassword(null, farmerVO.Password)
+            PasswordHash = _passwordHasher.HashPassword(null, farmerVO.Password),
+            Role = farmerVO.Role
         };
 
         if (!await _userRepository.AddUser(user))
@@ -66,7 +68,15 @@ public class FarmerService : IFarmerService
             throw new DomainException("An error has occurred while registering the farmer");
         }
 
-        var result = new FarmerVO(farmerVO.Id, farmerVO.UserId, farmerVO.Name, farmerVO.Email, farmerVO.Password, farmerVO.Cnpj, farmerVO.PhoneNumber);
+        var result = new FarmerVO(
+            farmerVO.Id,
+            farmerVO.UserId,
+            farmerVO.Name,
+            farmerVO.Email,
+            farmerVO.Password,
+            farmerVO.Cnpj,
+            farmerVO.PhoneNumber,
+            farmerVO.Role);
 
         return _mapper.Map<OutboundRegisterFarmer>(result);
     }
