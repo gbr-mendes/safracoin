@@ -8,11 +8,11 @@ namespace SafraCoin.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class FarmersController : ControllerBase
+public class FarmerController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IFarmerService _farmersService;
-    public FarmersController(IMapper mapper, IFarmerService farmersService)
+    public FarmerController(IMapper mapper, IFarmerService farmersService)
     {
         _mapper = mapper;
         _farmersService = farmersService;

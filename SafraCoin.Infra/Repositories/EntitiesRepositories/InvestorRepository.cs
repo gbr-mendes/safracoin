@@ -15,10 +15,18 @@ public class InvestorRepository : IInvestorRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<User>> GetInvestors()
+    public async Task<IEnumerable<InvestorVO>> GetInvestors()
     {
-        // Ajustar para retornar apenas os investidores
-        return await _context.Users.ToListAsync();
+        var investors = from investor in _context.Investors
+            join user in _context.Users on investor.User.Id equals user.Id
+            select new InvestorVO(
+                investor.Id,
+                user.Id,
+                user.Name,
+                user.Email,
+                string.Empty
+            );
+        return await investors.ToListAsync();
     }
 
     public async Task<bool> AddInvestor(Investor investor)

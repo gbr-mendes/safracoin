@@ -32,9 +32,16 @@ public class InvestorController : ControllerBase
     {
         try
         {
-            var investor = _mapper.Map<InvestorVO>(inboundInvestor);
+            var investor = new InvestorVO(
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                inboundInvestor.Name,
+                inboundInvestor.Email,
+                inboundInvestor.Password
+            );
+
             var result = await _investorsService.Register(investor);
-            return Ok(_mapper.Map<OutboundRegisterInvestor>(result));
+            return Ok(result);
         }
         catch(Exception ex)
         {

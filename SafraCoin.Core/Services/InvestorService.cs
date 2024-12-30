@@ -64,6 +64,8 @@ public class InvestorService : IInvestorService
             throw new DomainException("An error has occurred while registering the investor");
         }
 
-        return _mapper.Map<OutboundRegisterInvestor>(user);
+        var result = new InvestorVO(investor.Id, user.Id, user.Name, user.Email, string.Empty);
+
+        return _mapper.Map<OutboundRegisterInvestor>(result);
     }
 }

@@ -6,5 +6,5 @@ namespace SafraCoin.Core.Interfaces.Repositories;
 public interface IInvestorRepository
 {
     Task<bool> AddInvestor(Investor investor);
-    Task<IEnumerable<User>> GetInvestors();
+    Task<IEnumerable<InvestorVO>> GetInvestors();
 }

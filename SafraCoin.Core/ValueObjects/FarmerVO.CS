@@ -10,7 +10,7 @@ public class FarmerVO
     public string? Cnpj { get; private set; }
     public string? PhoneNumber { get; private set; }
 
-    public FarmerVO(Guid id, Guid userId, string? name, string? email, string? password, string? cnpj, string? phoneNumber)
+    public FarmerVO(Guid id, Guid userId, string name, string email, string password, string cnpj, string phoneNumber)
     {
         Id = id;
         UserId = userId;

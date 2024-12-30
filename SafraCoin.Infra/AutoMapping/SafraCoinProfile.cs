@@ -25,5 +25,7 @@ public class SafraCoinProfile : Profile
         CreateMap<Farmer, OutboundGetFarmer>().DisableCtorValidation();
         CreateMap<FarmerVO, OutboundGetFarmer>().DisableCtorValidation();
         CreateMap<FarmerVO, OutboundRegisterFarmer>().DisableCtorValidation();
+        CreateMap<InvestorVO, OutboundGetInvestor>().DisableCtorValidation();
+        CreateMap<InvestorVO, OutboundRegisterInvestor>().DisableCtorValidation();
     }
 }
