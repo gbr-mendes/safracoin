@@ -11,18 +11,18 @@ namespace SafraCoin.Core.Services;
 
 public class InvestorService : IInvestorService
 {
-    private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly IAuthService _authService;
     private readonly IInvestorRepository _investorRepository;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
     public InvestorService(
-        IPasswordHasher<User> passwordHasher,
+        IAuthService authService,
         IInvestorRepository investorRepository,
         IUserRepository userRepository,
         IMapper mapper)
     {
-        _passwordHasher = passwordHasher;
+        _authService = authService;
         _investorRepository = investorRepository;
         _userRepository = userRepository;
         _mapper = mapper;
@@ -41,12 +41,11 @@ public class InvestorService : IInvestorService
             throw new DomainException($"User with email {investorVO.Email} already exists");
         }
 
-        // TODO: Migrar a logica de hash de password para o AuthService
         var user = new User
         {
             Name = investorVO.Name,
             Email = investorVO.Email,
-            PasswordHash = _passwordHasher.HashPassword(null, investorVO.Password)
+            PasswordHash = _authService.HashPassword(investorVO.Password)
         };
 
         if (!await _userRepository.AddUser(user))

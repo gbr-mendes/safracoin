@@ -40,6 +40,11 @@ public class AuthService : IAuthService
         return tokenHandler.WriteToken(token);
     }
 
+    public string HashPassword(string password)
+    {
+        return _passwordHasher.HashPassword(null, password);
+    }
+
     public bool IsPasswordValid(string passwordHash, string password)
     {
         return _passwordHasher.VerifyHashedPassword(null, passwordHash, password) == PasswordVerificationResult.Success;
