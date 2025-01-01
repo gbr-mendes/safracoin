@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Generate Protobuf C#",
+        "type": "shell",
+        "command": "protoc",
+        "args": [
+          "--proto_path=${workspaceFolder}/SafraCoin.Core/Protos",               
+          "--csharp_out=${workspaceFolder}/SafraCoin.Core/Protos/Generated", 
+          "${workspaceFolder}/SafraCoin.Core/Protos/*.proto"
+        ],
+        "group": "build",
+        "problemMatcher": [],
+        "runOptions": {
+          "runOn": "folderOpen"
+        }
+      }
+    ]
+  }
+  
