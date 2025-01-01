@@ -39,6 +39,7 @@ public class FarmerController : ControllerBase
                 inboundFarmer.Password,
                 inboundFarmer.Cnpj,
                 inboundFarmer.PhoneNumber,
+                inboundFarmer.AccountAddress,
                 Role.Farmer);
 
             var result = await _farmersService.Register(farmer);

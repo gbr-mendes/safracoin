@@ -11,9 +11,10 @@ public class FarmerVO
     public string? Password { get; private set; }
     public string? Cnpj { get; private set; }
     public string? PhoneNumber { get; private set; }
+    public string? AccountAddress { get; private set; }
     public Role Role { get; private set; }
 
-    public FarmerVO(Guid id, Guid userId, string name, string email, string password, string cnpj, string phoneNumber, Role role)
+    public FarmerVO(Guid id, Guid userId, string name, string email, string password, string cnpj, string phoneNumber,string accountAddress, Role role)
     {
         Id = id;
         UserId = userId;
@@ -22,6 +23,7 @@ public class FarmerVO
         Password = password;
         Cnpj = cnpj;
         PhoneNumber = phoneNumber;
+        AccountAddress = accountAddress;
         Role = role;
     }
 }

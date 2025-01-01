@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Optional.Unsafe;
 using SafraCoin.Core.DTO.Authentication;
-using SafraCoin.Core.Interfaces.Repositories;
+using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Interfaces.Services;
 
 namespace SafraCoin.Controllers;

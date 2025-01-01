@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.DTO.Farmers;
 using SafraCoin.Core.Enums;
 using SafraCoin.Core.Exceptions;
-using SafraCoin.Core.Interfaces.Repositories;
+using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
@@ -61,6 +61,7 @@ public class FarmerService : IFarmerService
             User = user,
             Cnpj = farmerVO.Cnpj,
             PhoneNumber = farmerVO.PhoneNumber,
+            AccountAddress = farmerVO.AccountAddress
         };
 
         if (!await _farmerRepository.AddFarmer(farmer))
@@ -76,6 +77,7 @@ public class FarmerService : IFarmerService
             farmerVO.Password,
             farmerVO.Cnpj,
             farmerVO.PhoneNumber,
+            farmerVO.AccountAddress,
             farmerVO.Role);
 
         return _mapper.Map<OutboundRegisterFarmer>(result);

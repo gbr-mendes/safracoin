@@ -6,4 +6,5 @@ public class Farmer
     public required User User { get; set; }
     public required string Cnpj { get; set; }
     public required string PhoneNumber { get; set; }
+    public required string AccountAddress { get; set; }
 }

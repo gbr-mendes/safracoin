@@ -2,7 +2,7 @@ using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Core.Models;
 using Microsoft.AspNetCore.Identity;
-using SafraCoin.Core.Interfaces.Repositories;
+using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using AutoMapper;
 using SafraCoin.Core.DTO.Investors;
 using SafraCoin.Core.Exceptions;

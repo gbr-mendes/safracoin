@@ -1,7 +1,7 @@
 using Optional;
 using SafraCoin.Core.Models;
 
-namespace SafraCoin.Core.Interfaces.Repositories;
+namespace SafraCoin.Core.Interfaces.Repositories.EFRepository;
 
 public interface IUserRepository
 {

@@ -15,4 +15,6 @@ public class InboundRegisterFarmer
     public required string Cnpj { get; set; }
     [Required]
     public required string PhoneNumber { get; set; }
+    [Required]
+    public required string AccountAddress { get; set; }
 }

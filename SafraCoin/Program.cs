@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore.Storage;
 using SafraCoin.Infra.Settings;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.Models;
-using SafraCoin.Core.Interfaces.Repositories;
-using SafraCoin.Infra.Repositories.EntitiesRepositories;
+using SafraCoin.Core.Interfaces.Repositories.EFRepository;
+using SafraCoin.Infra.Repositories.EFRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SafraCoin.Infra.Services;
+using StackExchange.Redis;
+using Microsoft.Extensions.Options;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
 
 builder.Services.AddAuthentication(o => {
     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,6 +48,8 @@ builder.Services.AddAuthentication(o => {
     };
 });
 
+// TODO: Refactor DI with extension methods
+
 builder.Services.AddAutoMapper(typeof(SafraCoinProfile));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -58,6 +63,12 @@ builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;
+    return ConnectionMultiplexer.Connect(redisSettings.ConnectionString);
+});
 
 var app = builder.Build();
 

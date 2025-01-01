@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using SafraCoin.Core.Interfaces.Repositories;
+using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Infra.Db;
 
-namespace SafraCoin.Infra.Repositories.EntitiesRepositories;
+namespace SafraCoin.Infra.Repositories.EFRepository;
 
 public class InvestorRepository : IInvestorRepository
 {
