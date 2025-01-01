@@ -12,4 +12,16 @@ public class RedisRepository : IRedisRepository
         _redis = redis;
         _database = _redis.GetDatabase();
     }
+
+    public async Task<bool> AddEntryToStreamAsync(string streamKey, byte[] entry)
+    {
+        var streamEntry = new NameValueEntry[]
+        {
+            new("entry", entry)
+        };
+
+        var entryId = await _database.StreamAddAsync(streamKey, streamEntry);
+
+        return !string.IsNullOrEmpty(entryId);
+    }
 }

@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.DTO.Farmers;
-using SafraCoin.Core.Enums;
 using SafraCoin.Core.Exceptions;
+using SafraCoin.Core.Interfaces.Repositories;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.Models;
@@ -14,16 +14,24 @@ public class FarmerService : IFarmerService
 {
     private readonly IUserRepository _userRepository;
     private readonly IFarmerRepository _farmerRepository;
+    private readonly IRedisRepository _redisRepository;
+    private readonly IProtoService _protoService;
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IMapper _mapper;
+    private static readonly string streamKey = "FarmersStream";
+    
     public FarmerService(
         IUserRepository userRepository,
-        IPasswordHasher<User> passwordHasher,
         IFarmerRepository farmerRepository,
+        IRedisRepository redisRepository,
+        IProtoService protoService,
+        IPasswordHasher<User> passwordHasher,
         IMapper mapper)
     {
         _userRepository = userRepository;
         _farmerRepository = farmerRepository;
+        _redisRepository = redisRepository;
+        _protoService = protoService;
         _passwordHasher = passwordHasher;
         _mapper = mapper;
     }
@@ -79,6 +87,10 @@ public class FarmerService : IFarmerService
             farmerVO.PhoneNumber,
             farmerVO.AccountAddress,
             farmerVO.Role);
+
+        var redisEntry = _mapper.Map<Farmer>(farmerVO);
+        var serializedEntry = _protoService.Serialize(redisEntry);
+        await _redisRepository.AddEntryToStreamAsync(streamKey, serializedEntry);
 
         return _mapper.Map<OutboundRegisterFarmer>(result);
     }

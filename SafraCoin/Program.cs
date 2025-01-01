@@ -2,9 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.Services;
 using SafraCoin.Infra.Db;
-using AutoMapper;
 using SafraCoin.Infra.AutoMapping;
-using Microsoft.EntityFrameworkCore.Storage;
 using SafraCoin.Infra.Settings;
 using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.Models;
@@ -15,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using SafraCoin.Infra.Services;
 using StackExchange.Redis;
 using Microsoft.Extensions.Options;
+using SafraCoin.Core.Interfaces.Repositories;
+using SafraCoin.Infra.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,6 +63,8 @@ builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProtoService, ProtoService>();
+builder.Services.AddScoped<IRedisRepository, RedisRepository>();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
