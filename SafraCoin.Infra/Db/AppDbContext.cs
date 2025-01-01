@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SafraCoin.Core.Models;
+using FarmerModel = SafraCoin.Core.Models.Farmer;
 
 namespace SafraCoin.Infra.Db;
 
@@ -17,5 +18,5 @@ public class AppDbContext : DbContext
     
     public required DbSet<User> Users { get; set; }
     public required DbSet<Investor> Investors { get; set; }
-    public required DbSet<Farmer> Farmers { get; set; }
+    public required DbSet<FarmerModel> Farmers { get; set; }
 }

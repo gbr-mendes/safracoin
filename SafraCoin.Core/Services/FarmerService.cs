@@ -55,7 +55,7 @@ public class FarmerService : IFarmerService
             throw new DomainException("An error has occurred while registering the user");
         }
 
-        var farmer = new Farmer
+        var farmer = new Models.Farmer
         {
             Id = farmerVO.Id,
             User = user,

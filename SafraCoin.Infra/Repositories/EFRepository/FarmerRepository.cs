@@ -3,6 +3,7 @@ using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Infra.Db;
+using FarmerModel = SafraCoin.Core.Models.Farmer;
 
 namespace SafraCoin.Infra.Repositories.EFRepository;
 
@@ -34,7 +35,7 @@ public class FarmerRepository : IFarmerRepository
         return await farmers.ToListAsync();
     }
 
-    public async Task<bool> AddFarmer(Farmer farmer)
+    public async Task<bool> AddFarmer(FarmerModel farmer)
     {
         await _context.Farmers.AddAsync(farmer);
         return await _context.SaveChangesAsync() != 0;
