@@ -18,7 +18,7 @@ public class FarmerService : IFarmerService
     private readonly IProtoService _protoService;
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IMapper _mapper;
-    private static readonly string streamKey = "FarmersStream";
+    private static readonly string streamKey = "FarmerAccounts";
     
     public FarmerService(
         IUserRepository userRepository,
@@ -63,7 +63,7 @@ public class FarmerService : IFarmerService
             throw new DomainException("An error has occurred while registering the user");
         }
 
-        var farmer = new Models.Farmer
+        var farmer = new Farmer
         {
             Id = farmerVO.Id,
             User = user,
@@ -88,7 +88,12 @@ public class FarmerService : IFarmerService
             farmerVO.AccountAddress,
             farmerVO.Role);
 
-        var redisEntry = _mapper.Map<Farmer>(farmerVO);
+        var redisEntry = new FarmerAccount
+        {
+            Email = farmerVO.Email,
+            Address = farmerVO.AccountAddress
+        };
+
         var serializedEntry = _protoService.Serialize(redisEntry);
         await _redisRepository.AddEntryToStreamAsync(streamKey, serializedEntry);
 
