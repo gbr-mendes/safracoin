@@ -1,80 +1,21 @@
-using Microsoft.EntityFrameworkCore;
-using SafraCoin.Core.Interfaces.Services;
-using SafraCoin.Core.Services;
-using SafraCoin.Infra.Db;
-using SafraCoin.Infra.AutoMapping;
-using SafraCoin.Infra.Settings;
-using Microsoft.AspNetCore.Identity;
-using SafraCoin.Core.Models;
-using SafraCoin.Core.Interfaces.Repositories.EFRepository;
-using SafraCoin.Infra.Repositories.EFRepository;
+using SafraCoin.Core.DI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SafraCoin.Infra.Services;
-using StackExchange.Redis;
-using Microsoft.Extensions.Options;
-using SafraCoin.Core.Interfaces.Repositories;
-using SafraCoin.Infra.Repositories;
+using SafraCoin.Infra.DI;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
-builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
-
-builder.Services.AddAuthentication(o => {
-    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options => {
-    var key = builder.Configuration["Jwt:Key"] ?? string.Empty;
-
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(key))
-    };
-});
-
-// TODO: Refactor DI with extension methods
-
-builder.Services.AddAutoMapper(typeof(SafraCoinProfile));
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), 
-        b => b.MigrationsAssembly("SafraCoin")));
-
-builder.Services.AddScoped<IInvestorRepository, InvestorRepository>();
-builder.Services.AddScoped<IInvestorService, InvestorService>();
-builder.Services.AddScoped<IFarmerService, FarmerService>();
-builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IProtoService, ProtoService>();
-builder.Services.AddScoped<IRedisRepository, RedisRepository>();
-
-builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-{
-    var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;
-    return ConnectionMultiplexer.Connect(redisSettings.ConnectionString);
-});
+builder.Services.AddInfraSettings();
+builder.Services.AddCoreServices();
+builder.Services.AddInfraServices();
+builder.Services.AddAppAuthentication();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
