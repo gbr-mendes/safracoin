@@ -1,10 +1,7 @@
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
-using AutoMapper;
-using SafraCoin.Core.DTO.Investors;
 using SafraCoin.Core.Exceptions;
 
 namespace SafraCoin.Core.Services;
@@ -14,27 +11,24 @@ public class InvestorService : IInvestorService
     private readonly IAuthService _authService;
     private readonly IInvestorRepository _investorRepository;
     private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
 
     public InvestorService(
         IAuthService authService,
         IInvestorRepository investorRepository,
-        IUserRepository userRepository,
-        IMapper mapper)
+        IUserRepository userRepository)
     {
         _authService = authService;
         _investorRepository = investorRepository;
         _userRepository = userRepository;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<OutboundGetInvestor>> GetInvestors()
+    public async Task<IEnumerable<InvestorVO>> GetInvestors()
     {
         var investors = await _investorRepository.GetInvestors();
-        return _mapper.Map<IEnumerable<OutboundGetInvestor>>(investors);
+        return investors;
     }
 
-    public async Task<OutboundRegisterInvestor> Register(InvestorVO investorVO)
+    public async Task<InvestorVO> Register(InvestorVO investorVO)
     {
         if (await _userRepository.UserExists(investorVO.Email))
         {
@@ -72,6 +66,6 @@ public class InvestorService : IInvestorService
             string.Empty,
             investorVO.Role);
 
-        return _mapper.Map<OutboundRegisterInvestor>(result);
+        return result;
     }
 }

@@ -1,14 +1,12 @@
 using SafraCoin.Core.Enums;
 
-namespace SafraCoin.Core.DTO.Farmers;
+namespace SafraCoin.DTO.Investors;
 
-public class OutboundGetFarmer
+public class OutboundGetInvestor
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public required string Name { get; set; }
     public required string Email { get; set; }
-    public required string Cnpj { get; set; }
-    public required string PhoneNumber { get; set; }
     public required Role Role { get; set; }
 }

@@ -1,4 +1,4 @@
-namespace SafraCoin.Core.DTO.Authentication;
+namespace SafraCoin.DTO.Authentication;
 
 public class OutboundLogin
 {

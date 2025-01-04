@@ -1,4 +1,3 @@
-using SafraCoin.Core.DTO.Authentication;
 using SafraCoin.Core.Models;
 
 namespace SafraCoin.Core.Interfaces.Services;

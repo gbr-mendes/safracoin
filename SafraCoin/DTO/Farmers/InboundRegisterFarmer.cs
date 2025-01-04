@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SafraCoin.Core.DTO.Farmers;
+namespace SafraCoin.DTO.Farmers;
 
 public class InboundRegisterFarmer
 {

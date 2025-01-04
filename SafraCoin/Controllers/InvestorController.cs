@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SafraCoin.Core.Interfaces.Services;
-using SafraCoin.Core.Models;
-using SafraCoin.Core.DTO.Investors;
+using SafraCoin.DTO.Investors;
 using AutoMapper;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Core.Enums;
@@ -43,7 +42,7 @@ public class InvestorController : ControllerBase
             );
 
             var result = await _investorsService.Register(investor);
-            return Ok(result);
+            return Ok(_mapper.Map<OutboundRegisterInvestor>(result));
         }
         catch(Exception ex)
         {

@@ -1,6 +1,5 @@
 using SafraCoin.Core.DI;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using SafraCoin.DI;
 using SafraCoin.Infra.DI;
 
 
@@ -13,6 +12,10 @@ builder.Services.AddInfraSettings();
 builder.Services.AddCoreServices();
 builder.Services.AddInfraServices();
 builder.Services.AddAppAuthentication();
+
+// auto mapping
+builder.Services.AddPresentationMapperProfile();
+builder.Services.AddInfraMappingProfile();
 
 var app = builder.Build();
 

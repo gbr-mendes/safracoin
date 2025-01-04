@@ -1,6 +1,6 @@
 using SafraCoin.Core.Enums;
 
-namespace SafraCoin.Core.DTO.Farmers;
+namespace SafraCoin.DTO.Farmers;
 
 public class OutboundRegisterFarmer
 {

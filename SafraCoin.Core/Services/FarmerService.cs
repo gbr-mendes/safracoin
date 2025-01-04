@@ -1,6 +1,4 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using SafraCoin.Core.DTO.Farmers;
 using SafraCoin.Core.Exceptions;
 using SafraCoin.Core.Interfaces.Repositories;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
@@ -17,7 +15,6 @@ public class FarmerService : IFarmerService
     private readonly IRedisRepository _redisRepository;
     private readonly IProtoService _protoService;
     private readonly IPasswordHasher<User> _passwordHasher;
-    private readonly IMapper _mapper;
     private static readonly string streamKey = "FarmerAccounts";
     
     public FarmerService(
@@ -25,24 +22,22 @@ public class FarmerService : IFarmerService
         IFarmerRepository farmerRepository,
         IRedisRepository redisRepository,
         IProtoService protoService,
-        IPasswordHasher<User> passwordHasher,
-        IMapper mapper)
+        IPasswordHasher<User> passwordHasher)
     {
         _userRepository = userRepository;
         _farmerRepository = farmerRepository;
         _redisRepository = redisRepository;
         _protoService = protoService;
         _passwordHasher = passwordHasher;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<OutboundGetFarmer>> GetFarmers()
+    public async Task<IEnumerable<FarmerVO>> GetFarmers()
     {
         var farmers = await _farmerRepository.GetFarmers();
-        return _mapper.Map<IEnumerable<OutboundGetFarmer>>(farmers);
+        return farmers;
     }
 
-    public async Task<OutboundRegisterFarmer> Register(FarmerVO farmerVO)
+    public async Task<FarmerVO> Register(FarmerVO farmerVO)
     {
         if (await _userRepository.UserExists(farmerVO.Email))
         {
@@ -97,6 +92,6 @@ public class FarmerService : IFarmerService
         var serializedEntry = _protoService.Serialize(redisEntry);
         await _redisRepository.AddEntryToStreamAsync(streamKey, serializedEntry);
 
-        return _mapper.Map<OutboundRegisterFarmer>(result);
+        return result;
     }
 }

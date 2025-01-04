@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SafraCoin.Core.DTO.Authentication;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.Models;
 using SafraCoin.Infra.Settings;

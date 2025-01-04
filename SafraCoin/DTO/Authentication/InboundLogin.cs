@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SafraCoin.Core.DTO.Authentication;
+namespace SafraCoin.DTO.Authentication;
 
 public class InboundLogin
 {

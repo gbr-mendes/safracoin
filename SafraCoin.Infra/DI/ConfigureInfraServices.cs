@@ -7,7 +7,6 @@ using SafraCoin.Core.Interfaces.Repositories;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
 using SafraCoin.Core.Interfaces.Services;
 using SafraCoin.Core.Models;
-using SafraCoin.Infra.AutoMapping;
 using SafraCoin.Infra.Db;
 using SafraCoin.Infra.Repositories;
 using SafraCoin.Infra.Repositories.EFRepository;
@@ -41,8 +40,6 @@ public static class ConfigureInfraServices
             var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;
             return ConnectionMultiplexer.Connect(redisSettings.ConnectionString);
         });
-        
-        services.AddAutoMapper(typeof(SafraCoinProfile));
 
         return services;
     }

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
-using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Infra.Db;
 using FarmerModel = SafraCoin.Core.Models.Farmer;
