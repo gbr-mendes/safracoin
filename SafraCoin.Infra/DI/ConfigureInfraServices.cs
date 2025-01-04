@@ -27,6 +27,7 @@ public static class ConfigureInfraServices
         services.AddScoped<IRedisRepository, RedisRepository>();
         services.AddScoped<IFarmerRepository, FarmerRepository>();
         services.AddScoped<IInvestorRepository, InvestorRepository>();
+        services.AddScoped<ICropRepository, CropRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         

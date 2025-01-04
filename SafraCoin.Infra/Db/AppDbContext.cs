@@ -19,4 +19,5 @@ public class AppDbContext : DbContext
     public required DbSet<User> Users { get; set; }
     public required DbSet<Investor> Investors { get; set; }
     public required DbSet<FarmerModel> Farmers { get; set; }
+    public required DbSet<Crop> Crops { get; set; }
 }

@@ -10,6 +10,7 @@ public static class ConfigureCoreServices
     {
         services.AddScoped<IInvestorService, InvestorService>();
         services.AddScoped<IFarmerService, FarmerService>();
+        services.AddScoped<ICropService, CropService>();
         return services;
     }
 }

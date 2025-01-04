@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Optional;
 using SafraCoin.Core.Interfaces.Repositories.EFRepository;
+using SafraCoin.Core.Models;
 using SafraCoin.Core.ValueObjects;
 using SafraCoin.Infra.Db;
-using FarmerModel = SafraCoin.Core.Models.Farmer;
 
 namespace SafraCoin.Infra.Repositories.EFRepository;
 
@@ -34,9 +35,20 @@ public class FarmerRepository : IFarmerRepository
         return await farmers.ToListAsync();
     }
 
-    public async Task<bool> AddFarmer(FarmerModel farmer)
+    public async Task<bool> AddFarmer(Farmer farmer)
     {
         await _context.Farmers.AddAsync(farmer);
         return await _context.SaveChangesAsync() != 0;
+    }
+
+    public async Task<Option<Farmer>> GetFarmerByUserId(Guid userId)
+    {
+        var query = from farmer in _context.Farmers
+            join user in _context.Users on farmer.User.Id equals user.Id
+            where user.Id == userId
+            select farmer;
+
+        var result = await query.FirstOrDefaultAsync();
+        return result != null ? Option.Some(result) : Option.None<Farmer>();
     }
 }
